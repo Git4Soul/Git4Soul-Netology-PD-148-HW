@@ -16,4 +16,20 @@ WHERE name NOT LIKE '% %';
 
 SELECT title
 FROM song
-WHERE title ILIKE '%мой%' OR title ILIKE '%my%';
+WHERE 
+    title ILIKE 'мой %'
+    OR title ILIKE '% мой'
+    OR title ILIKE '% мой %'
+    OR title ILIKE 'мой'
+    OR title ILIKE 'my %'
+    OR title ILIKE '% my'
+    OR title ILIKE '% my %'
+    OR title ILIKE 'my';
+
+SELECT title
+FROM song
+WHERE string_to_array(lower(title), ' ') && ARRAY['мой', 'my'];
+
+SELECT title
+FROM song
+WHERE title ~* '\m(мой|my)\M';
