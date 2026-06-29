@@ -60,6 +60,20 @@ def test_create_folder_appears_in_list(folder_name, headers):
         f"Папка '{folder_name}' не найдена. Доступные папки: {folder_names}"
     )
 
+def test_get_folder_metadata_success(folder_name, headers):
+    """Проверка кода 200: получение метаданных созданной папки."""
+    path = f"/{folder_name}"
+    # Создаём папку
+    requests.put(f"{BASE_URL}?path={path}", headers=headers)
+
+    # Запрашиваем информацию о папке
+    response = requests.get(f"{BASE_URL}?path={path}", headers=headers)
+    assert response.status_code == 200, (
+        f"Ожидался код 200, получен {response.status_code}"
+    )
+    data = response.json()
+    assert data.get("name") == folder_name, "Имя папки в ответе не совпадает"
+    assert data.get("type") == "dir", "Тип ресурса должен быть 'dir'"
 
 # Негативные тесты
 
