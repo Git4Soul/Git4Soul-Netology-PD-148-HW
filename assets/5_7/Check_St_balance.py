@@ -80,9 +80,9 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         user_input = sys.argv[1]
     else:
-        user_input = input("Введите строку со скобками: ")
+        user_input = input("Please enter a string with brackets: ")
 
     if is_balanced(user_input):
-        print("Сбалансированно")
+        print("Balanced")
     else:
-        print("Несбалансированно")
+        print("Unbalanced")
